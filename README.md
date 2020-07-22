@@ -25,5 +25,21 @@ Note: "cbw" is a package for the Bayesian analysis of several different regressi
     ```r
     data=getfinwdat(symbols=symbols, symnames=symnames, from=start_date, to=end_date)
     ```
-    In this project, I set the desired portfolio mean return levels as .03, .06, .09 and .12, each in annual terms.  
-
+2. **Construct the prior portfolio sample**    
+    1) Set portfolio return  
+    I set the desired portfolio mean return levels `portmean` as .03, .06, .09 and .12, each in annual terms, which are prior means of portfolio.  
+    2) Set portfolio components
+    I choose 5, 10, 15, 20, 25 and 30 stocks from downloaded stocks to construct portfolios in different sizes. The smaller set of assets should be a subset of the larger set. Each portfolio should contain a risk-free asset (S&P index in this project). 
+    3) Set prior training model  
+    Assume the stock premium is explained by the Gaussian Seemingly Unrelated Regression (SURE) Capital Asset Pricing Model (CAPM) without an intercept.  
+    For each size level, I construct portfolios matching prior mean return levels. Thus, I construct 6x4=24 portfolios in total.  
+    ```r
+    capmfrmls=list(prmapple~prmsp500-1,...)
+    camportls = makebayesportfolioaftersureg(portmean = portmean,
+                                         modelfrmls = capmfrmls,
+                                         data = data)
+    priorls = trainpriorsureg(modelfrmls = capmfrmls,
+                          data = data,
+                          trainpct = .15)
+    ```
+    3) Use 
