@@ -21,5 +21,9 @@
 Note: "cbw" is a package for the Bayesian analysis of several different regression models. You can install this package from [cbw rpackage](https://apps.olin.wustl.edu/faculty/chib/rpackages/cbw/).  
 ## Part 2 Get Started
 1. **Import Stock Data**  
-
+    First, download stock prices and S&P as benchmark using `getfinwdat`. Then, remove NULL values. 
+    ```r
+    data=getfinwdat(symbols=symbols, symnames=symnames, from=start_date, to=end_date)
+    ```
+    In this project, I set the desired portfolio mean return levels as .03, .06, .09 and .12, each in annual terms.  
 
